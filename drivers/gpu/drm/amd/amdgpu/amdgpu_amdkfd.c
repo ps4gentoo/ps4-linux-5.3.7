@@ -69,6 +69,8 @@ void amdgpu_amdkfd_device_probe(struct amdgpu_device *adev)
 #ifdef CONFIG_DRM_AMDGPU_CIK
 	case CHIP_KAVERI:
 	case CHIP_HAWAII:
+	case CHIP_GLADIUS:
+	case CHIP_LIVERPOOL:
 		kfd2kgd = amdgpu_amdkfd_gfx_7_get_functions();
 		break;
 #endif

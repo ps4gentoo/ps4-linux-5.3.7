@@ -31,7 +31,7 @@
 
 #define TARGET_HW_I2C_CLOCK 50
 
-/* these are a limitation of ProcessI2cChannelTransaction not the hw */
+/* these are a limitation of ProcessI2cChannelTransaction // ReadEDIDFromHWAssistedI2C not the hw */
 #define ATOM_MAX_HW_I2C_WRITE 3
 #define ATOM_MAX_HW_I2C_READ  255
 
@@ -42,7 +42,7 @@ static int amdgpu_atombios_i2c_process_i2c_ch(struct amdgpu_i2c_chan *chan,
 	struct drm_device *dev = chan->dev;
 	struct amdgpu_device *adev = dev->dev_private;
 	PROCESS_I2C_CHANNEL_TRANSACTION_PS_ALLOCATION args;
-	int index = GetIndexIntoMasterTable(COMMAND, ProcessI2cChannelTransaction);
+	int index = GetIndexIntoMasterTable(COMMAND, ReadEDIDFromHWAssistedI2C);
 	unsigned char *base;
 	u16 out = cpu_to_le16(0);
 	int r = 0;
@@ -167,7 +167,7 @@ u32 amdgpu_atombios_i2c_func(struct i2c_adapter *adap)
 void amdgpu_atombios_i2c_channel_trans(struct amdgpu_device* adev, u8 slave_addr, u8 line_number, u8 offset, u8 data)
 {
 	PROCESS_I2C_CHANNEL_TRANSACTION_PS_ALLOCATION args;
-	int index = GetIndexIntoMasterTable(COMMAND, ProcessI2cChannelTransaction);
+	int index = GetIndexIntoMasterTable(COMMAND, ReadEDIDFromHWAssistedI2C);
 
 	args.ucRegIndex = offset;
 	args.lpI2CDataOut = data;
