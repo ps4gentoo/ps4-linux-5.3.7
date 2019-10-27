@@ -95,7 +95,7 @@ static const struct kfd_device_info raven_device_info = {
 #endif
 
 static const struct kfd_device_info hawaii_device_info = {
-	.asic_family = CHIP_HAWAII,
+	.asic_family = CHIP_LIVERPOOL,
 	.max_pasid_bits = 16,
 	/* max num of queues for KV.TODO should be a dynamic value */
 	.max_no_of_hqd	= 24,
@@ -105,7 +105,7 @@ static const struct kfd_device_info hawaii_device_info = {
 	.num_of_watch_points = 4,
 	.mqd_size_aligned = MQD_SIZE_ALIGNED,
 	.supports_cwsr = false,
-	.needs_iommu_device = false,
+	.needs_iommu_device = true,
 	.needs_pci_atomics = false,
 	.num_sdma_engines = 2,
 	.num_xgmi_sdma_engines = 0,
@@ -371,10 +371,10 @@ static const struct kfd_deviceid supported_devices[] = {
 	{ 0x15DD, &raven_device_info },		/* Raven */
 	{ 0x15D8, &raven_device_info },		/* Raven */
 #endif
-	{ 0x67A0, &hawaii_device_info },	/* Hawaii */
-	{ 0x67A1, &hawaii_device_info },	/* Hawaii */
-	{ 0x67A2, &hawaii_device_info },	/* Hawaii */
-	{ 0x67A8, &hawaii_device_info },	/* Hawaii */
+ 	{ 0x9920, &hawaii_device_info },	/* Hawaii */
+	{ 0x9922, &hawaii_device_info },	/* Hawaii */
+	{ 0x9923, &hawaii_device_info },	/* Hawaii */
+	{ 0x9924, &hawaii_device_info },	/* Hawaii */
 	{ 0x67A9, &hawaii_device_info },	/* Hawaii */
 	{ 0x67AA, &hawaii_device_info },	/* Hawaii */
 	{ 0x67B0, &hawaii_device_info },	/* Hawaii */

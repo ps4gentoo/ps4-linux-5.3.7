@@ -627,7 +627,8 @@ static int kfd_fill_gpu_cache_info(struct kfd_dev *kdev,
 		pcache_info = kaveri_cache_info;
 		num_of_cache_types = ARRAY_SIZE(kaveri_cache_info);
 		break;
-	case CHIP_HAWAII:
+	case CHIP_LIVERPOOL:
+	case CHIP_GLADIUS:
 		pcache_info = hawaii_cache_info;
 		num_of_cache_types = ARRAY_SIZE(hawaii_cache_info);
 		break;

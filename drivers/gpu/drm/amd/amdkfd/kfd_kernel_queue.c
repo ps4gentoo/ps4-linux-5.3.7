@@ -323,6 +323,8 @@ struct kernel_queue *kernel_queue_init(struct kfd_dev *dev,
 
 	case CHIP_KAVERI:
 	case CHIP_HAWAII:
+	case CHIP_LIVERPOOL:
+	case CHIP_GLADIUS:
 		kernel_queue_init_cik(&kq->ops_asic_specific);
 		break;
 
