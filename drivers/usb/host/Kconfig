@@ -1,4 +1,3 @@
-# SPDX-License-Identifier: GPL-2.0
 #
 # USB Host Controller Drivers
 #
@@ -70,13 +69,13 @@ config USB_XHCI_MTK
 	  If unsure, say N.
 
 config USB_XHCI_MVEBU
-	tristate "xHCI support for Marvell Armada 375/38x/37xx"
+	tristate "xHCI support for Marvell Armada 375/38x"
 	select USB_XHCI_PLATFORM
 	depends on HAS_IOMEM
 	depends on ARCH_MVEBU || COMPILE_TEST
 	---help---
 	  Say 'Y' to enable the support for the xHCI host controller
-	  found in Marvell Armada 375/38x/37xx ARM SOCs.
+	  found in Marvell Armada 375/38x ARM SOCs.
 
 config USB_XHCI_RCAR
 	tristate "xHCI support for Renesas R-Car SoCs"
@@ -94,6 +93,13 @@ config USB_XHCI_TEGRA
 	---help---
 	  Say 'Y' to enable the support for the xHCI host controller
 	  found in NVIDIA Tegra124 and later SoCs.
+		
+config USB_XHCI_AEOLIA
+	tristate "xHCI support for Sony PS4 (Aeolia)"
+	depends on X86_PS4
+	---help---
+	  Say 'Y' to enable the support for the xHCI host controller
+	  found in the Sony PlayStation 4.
 
 endif # USB_XHCI_HCD
 
@@ -114,7 +120,7 @@ config USB_EHCI_HCD
 	  Controller Driver or UHCI (for Via motherboards) Host Controller
 	  Driver too.
 
-	  You may want to read <file:Documentation/usb/ehci.rst>.
+	  You may want to read <file:Documentation/usb/ehci.txt>.
 
 	  To compile this driver as a module, choose M here: the
 	  module will be called ehci-hcd.
@@ -161,6 +167,7 @@ config USB_EHCI_PCI
 config USB_EHCI_HCD_PMC_MSP
 	tristate "EHCI support for on-chip PMC MSP71xx USB controller"
 	depends on MSP_HAS_USB
+	default n
 	select USB_EHCI_BIG_ENDIAN_DESC
 	select USB_EHCI_BIG_ENDIAN_MMIO
 	---help---
@@ -179,7 +186,8 @@ config XPS_USB_HCD_XILINX
 		devices only.
 
 config USB_EHCI_FSL
-	tristate "Support for Freescale on-chip EHCI USB controller"
+	tristate "Support for Freescale PPC on-chip EHCI USB controller"
+	depends on FSL_SOC
 	select USB_EHCI_ROOT_HUB_TT
 	---help---
 	  Variation of ARC USB block used in some Freescale chips.
@@ -307,6 +315,7 @@ config USB_CNS3XXX_EHCI
 
 config USB_EHCI_HCD_PLATFORM
 	tristate "Generic EHCI driver for a platform device"
+	default n
 	---help---
 	  Adds an EHCI host driver for a generic platform device, which
 	  provides a memory space and an irq.
@@ -316,6 +325,7 @@ config USB_EHCI_HCD_PLATFORM
 config USB_OCTEON_EHCI
 	bool "Octeon on-chip EHCI support (DEPRECATED)"
 	depends on CAVIUM_OCTEON_SOC
+	default n
 	select USB_EHCI_BIG_ENDIAN_MMIO if CPU_BIG_ENDIAN
 	select USB_EHCI_HCD_PLATFORM
 	help
@@ -523,6 +533,7 @@ config USB_OHCI_HCD_SSB
 	depends on (SSB = y || SSB = USB_OHCI_HCD)
 	select USB_HCD_SSB
 	select USB_OHCI_HCD_PLATFORM
+	default n
 	---help---
 	  This option is deprecated now and the driver was removed, use
 	  USB_HCD_SSB and USB_OHCI_HCD_PLATFORM instead.
@@ -565,6 +576,7 @@ config USB_CNS3XXX_OHCI
 
 config USB_OHCI_HCD_PLATFORM
 	tristate "Generic OHCI driver for a platform device"
+	default n
 	---help---
 	  Adds an OHCI host driver for a generic platform device, which
 	  provides a memory space and an irq.
