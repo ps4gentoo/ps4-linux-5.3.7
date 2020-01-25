@@ -5155,7 +5155,7 @@ static int sky2_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
                        goto err_out_free_netdev;
                }
                hw->flags |= SKY2_HW_USE_AEOLIA_MSI;
-       }
+       } else
 #endif
 
 	if (!disable_msi && pci_enable_msi(pdev) == 0) {
