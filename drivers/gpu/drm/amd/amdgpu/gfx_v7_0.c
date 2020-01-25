@@ -2252,6 +2252,7 @@ gfx_v7_0_raster_config(struct amdgpu_device *adev, u32 *rconf, u32 *rconf1)
 			  PKR_YSEL(1) | SE_MAP(2) | SE_XSEL(2) |
 			  SE_YSEL(2);
 		*rconf1 |= 0x0;
+		break;
 	case CHIP_GLADIUS:
 		*rconf |= 0x2a00161a;
 		*rconf1 |= 0x0000002e;
