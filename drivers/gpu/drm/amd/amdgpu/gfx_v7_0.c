@@ -1392,7 +1392,7 @@ static int gfx_v7_0_init_microcode(struct amdgpu_device *adev)
 	if (err)
 		goto out;
 
-	if (adev->asic_type == CHIP_KAVERI || adev->asic_type == CHIP_LIVERPOOL || adev->asic_type == CHIP_GLADIUS) {
+	if (adev->asic_type == CHIP_LIVERPOOL || adev->asic_type == CHIP_GLADIUS) {
 		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mec2.bin", chip_name);
 		err = request_firmware(&adev->gfx.mec2_fw, fw_name, adev->dev);
 		if (err)
@@ -2961,14 +2961,11 @@ static int gfx_v7_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
 	} else if (r < 0) {
 		goto err2;
 	}
-
 	tmp = RREG32(scratch);
-	if (tmp == 0xDEADBEEF) {
-		DRM_INFO("ib test on ring %d succeeded in %d us\n", ring->idx, r);
+	if (tmp == 0xDEADBEEF)
 		r = 0;
-	} else {
-		//r = -EINVAL;
-	}
+	else
+		r = -EINVAL;
 
 err2:
 	amdgpu_ib_free(adev, &ib, NULL);
@@ -4357,7 +4354,7 @@ static void gfx_v7_0_enable_gds_pg(struct amdgpu_device *adev, bool enable)
 
 static int gfx_v7_0_cp_pg_table_num(struct amdgpu_device *adev)
 {
-	if (adev->asic_type == CHIP_KAVERI || adev->asic_type == CHIP_LIVERPOOL || adev->asic_type == CHIP_GLADIUS)
+	if (adev->asic_type == CHIP_KAVERI)
 		return 5;
 	else
 		return 4;
