@@ -1309,7 +1309,7 @@ void xhci_handle_command_timeout(struct work_struct *work)
 	struct xhci_hcd *xhci;
 	unsigned long flags;
 	u64 hw_ring_state;
-
+	   u32 old_status;
 	xhci = container_of(to_delayed_work(work), struct xhci_hcd, cmd_timer);
 
 	spin_lock_irqsave(&xhci->lock, flags);
@@ -1351,7 +1351,13 @@ void xhci_handle_command_timeout(struct work_struct *work)
 
 	/* command timeout on stopped ring, ring can't be aborted */
 	xhci_dbg(xhci, "Command timeout on stopped ring\n");
-	xhci_handle_stopped_cmd_ring(xhci, xhci->current_cmd);
+	 /* is this the second timeout for the same command? ring wont restart */
+       if (old_status == COMP_COMMAND_ABORTED) {
+               xhci_err(xhci, "Abort timeout, Fail to restart cmd ring\n");
+               xhci_cleanup_command_queue(xhci);
+       /* everything else here to halt, cleanup, free etc kill xhc */
+       } else
+               xhci_handle_stopped_cmd_ring(xhci, xhci->current_cmd);
 
 time_out_completed:
 	spin_unlock_irqrestore(&xhci->lock, flags);

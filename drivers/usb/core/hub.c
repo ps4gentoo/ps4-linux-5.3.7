@@ -2959,9 +2959,13 @@ done:
 			 * so ignore the status.
 			 */
 			if (hcd->driver->reset_device)
-				hcd->driver->reset_device(hcd, udev);
+				status = hcd->driver->reset_device(hcd, udev);
 
 			usb_set_device_state(udev, USB_STATE_DEFAULT);
+		if (status == 0)
+                               usb_set_device_state(udev, USB_STATE_DEFAULT);
+                                             else
+                               usb_set_device_state(udev, USB_STATE_NOTATTACHED);
 		}
 	} else {
 		if (udev)

@@ -3603,7 +3603,7 @@ static int xhci_discover_or_reset_device(struct usb_hcd *hcd,
 		if (ret == 1)
 			return 0;
 		else
-			return -EINVAL;
+			return -ENOTCONN;
 	}
 
 	if (virt_dev->tt_info)
